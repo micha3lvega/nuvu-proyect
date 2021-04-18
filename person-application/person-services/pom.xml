@@ -15,7 +15,11 @@
 	<name>person-services</name>
 	<description>Aplicacion para el manejo de los servicios de personas</description>
 	<properties>
-		<java.version>11</java.version>
+
+		<java.version>1.8</java.version>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+
 		<spring-cloud.version>Hoxton.SR10</spring-cloud.version>
 	</properties>
 	<dependencies>

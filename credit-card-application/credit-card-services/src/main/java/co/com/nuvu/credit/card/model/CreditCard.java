@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import co.com.nuvu.credit.card.helpers.CardType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Clase que representa la entidad de una tarjeta de credito
@@ -21,6 +22,7 @@ import lombok.Data;
 @Data
 @Document
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreditCard implements Serializable {
 
 	private static final long serialVersionUID = 1L;

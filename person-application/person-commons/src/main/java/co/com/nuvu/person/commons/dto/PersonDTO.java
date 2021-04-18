@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import co.com.nuvu.credit.card.dto.CreditCardDTO;
@@ -50,11 +49,9 @@ public class PersonDTO implements Serializable {
 	@Valid
 	@NotNull
 	private CreditCardDTO creditCard;
-	
-	@NotBlank
+
 	private Date createdAt;
 
-	@NotEmpty
 	private Date updatedAt;
 
 }

@@ -1,6 +1,7 @@
 package co.com.nuvu.credit.card.services.impl;
 
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,6 +12,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +37,15 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 			Cipher cipher = Cipher.getInstance(properties.getAlgorithm());
 
 			byte[] key = getKey(creditCard.getId());
+			IvParameterSpec iv = new IvParameterSpec(key);
 			SecretKeySpec keySpec = getSecretKey(key);
 
-			cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+			cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
 			return Base64.getEncoder()
 					.encodeToString(cipher.doFinal(creditCard.getNumber().getBytes(StandardCharsets.UTF_8)));
 
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException e) {
+				| BadPaddingException | InvalidAlgorithmParameterException e) {
 			throw new CreditCardBusinessException(e.getMessage());
 		}
 
@@ -56,13 +59,15 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 			Cipher cipher = Cipher.getInstance(properties.getAlgorithm());
 
 			byte[] key = getKey(creditCard.getId());
+			IvParameterSpec iv = new IvParameterSpec(key);
 			SecretKeySpec keySpec = getSecretKey(key);
 
-			cipher.init(Cipher.DECRYPT_MODE, keySpec);
+			cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
 			return new String(cipher.doFinal(Base64.getDecoder().decode(creditCard.getNumber())));
 
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException e) {
+				| BadPaddingException | InvalidAlgorithmParameterException e) {
+			e.printStackTrace();
 			throw new CreditCardBusinessException(e.getMessage());
 		}
 
@@ -71,10 +76,13 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 	private byte[] getKey(String myKey) {
 		MessageDigest sha = null;
 		try {
+
 			byte[] key = myKey.getBytes(StandardCharsets.UTF_8);
+
 			sha = MessageDigest.getInstance("SHA-1");
 			key = sha.digest(key);
 			return Arrays.copyOf(key, 16);
+
 		} catch (NoSuchAlgorithmException e) {
 			throw new CreditCardBusinessException();
 		}

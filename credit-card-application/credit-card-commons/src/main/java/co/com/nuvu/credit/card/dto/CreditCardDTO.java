@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import co.com.nuvu.credit.card.helpers.CardType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
@@ -22,6 +23,7 @@ import lombok.Data;
  *
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class CreditCardDTO implements Serializable {
 

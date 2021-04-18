@@ -18,4 +18,6 @@ public class CreditCardProperties {
 	@Value("${encript.algorithm}")
 	private String algorithm;
 
+	@Value("${encript.salt}")
+	private String salt;
 }

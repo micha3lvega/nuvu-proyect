@@ -47,6 +47,12 @@ public class CreditCardServices implements ICreditCardServices {
 	}
 
 	@Override
+	public CardType detectCardType(String number) {
+		return CardType.detect(number);
+	}
+
+
+	@Override
 	@Transactional
 	public CreditCardDTO create(CreditCardDTO creditCard) {
 
@@ -54,8 +60,8 @@ public class CreditCardServices implements ICreditCardServices {
 			throw new CreditCardBusinessException("Tarjeta de credito invalida");
 		}
 
-		if (Objects.isNull(creditCard.getCardType())) {
-			creditCard.setCardType(CardType.detect(creditCard.getNumber()));
+		if ((creditCard.getNumber() == null) || creditCard.getNumber().isEmpty()) {
+			throw new CreditCardBusinessException("Numero de tarjeta de credito invalida");
 		}
 
 		CreditCard obj = repository.insert(mapper.map(creditCard, CreditCard.class));
@@ -92,5 +98,6 @@ public class CreditCardServices implements ICreditCardServices {
 		repository.delete(creditCard);
 
 	}
+
 
 }

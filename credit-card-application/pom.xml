@@ -6,4 +6,8 @@
   <packaging>pom</packaging>
   <name>credit-card-application</name>
   <description>Aplicacion para el manejo de las tarjetas de credito</description>
+  <modules>
+  	<module>credit-card-commons</module>
+  	<module>credit-card-services</module>
+  </modules>
 </project>

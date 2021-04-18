@@ -19,9 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.com.nuvu.credit.card.exception.CreditCardBusinessException;
-import co.com.nuvu.credit.card.model.CreditCard;
 import co.com.nuvu.credit.card.properties.CreditCardProperties;
 import co.com.nuvu.credit.card.services.ICreditCardEncriptServices;
+import co.com.nuvu.person.commons.dto.PersonDTO;
 
 @Service
 public class CreditCardEncriptServices implements ICreditCardEncriptServices {
@@ -30,19 +30,20 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 	private CreditCardProperties properties;
 
 	@Override
-	public String encryptCreditCardNumber(CreditCard creditCard) {
+	public String encryptCreditCardNumber(PersonDTO person) {
 
 		try {
 
 			Cipher cipher = Cipher.getInstance(properties.getAlgorithm());
 
-			byte[] key = getKey(creditCard.getId() + properties.getSalt() + creditCard.getCvv());
+			byte[] key = getKey(
+					person.getId() + properties.getSalt() + person.getDocument() + person.getCreditCard().getCvv());
 			IvParameterSpec iv = new IvParameterSpec(key);
 			SecretKeySpec keySpec = getSecretKey(key);
 
 			cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
-			return Base64.getEncoder()
-					.encodeToString(cipher.doFinal(creditCard.getNumber().getBytes(StandardCharsets.UTF_8)));
+			return Base64.getEncoder().encodeToString(
+					cipher.doFinal(person.getCreditCard().getNumber().getBytes(StandardCharsets.UTF_8)));
 
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
 				| BadPaddingException | InvalidAlgorithmParameterException e) {
@@ -52,18 +53,19 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 	}
 
 	@Override
-	public String decriptCreditCardNumber(CreditCard creditCard) {
+	public String decriptCreditCardNumber(PersonDTO person) {
 
 		try {
 
 			Cipher cipher = Cipher.getInstance(properties.getAlgorithm());
 
-			byte[] key = getKey(creditCard.getId() + properties.getSalt() + creditCard.getCvv());
+			byte[] key = getKey(
+					person.getId() + properties.getSalt() + person.getDocument() + person.getCreditCard().getCvv());
 			IvParameterSpec iv = new IvParameterSpec(key);
 			SecretKeySpec keySpec = getSecretKey(key);
 
 			cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
-			return new String(cipher.doFinal(Base64.getDecoder().decode(creditCard.getNumber())));
+			return new String(cipher.doFinal(Base64.getDecoder().decode(person.getCreditCard().getNumber())));
 
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
 				| BadPaddingException | InvalidAlgorithmParameterException e) {

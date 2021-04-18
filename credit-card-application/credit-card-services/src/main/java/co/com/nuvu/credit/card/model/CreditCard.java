@@ -32,7 +32,7 @@ public class CreditCard implements Serializable {
 	private String cvv;
 	private String number;
 	private CardType cardType;
-	private Date expirationDate;
+	private String expirationDate;
 
 	@CreatedDate
 	private Date createdAt;

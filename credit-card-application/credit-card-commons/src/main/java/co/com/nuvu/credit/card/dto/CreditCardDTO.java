@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import co.com.nuvu.credit.card.helpers.CardType;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class CreditCardDTO implements Serializable {
 	private String cvv;
 
 	@NotBlank
+	@Size(min = 3, max = 3)
 	private String number;
 
 	@Valid

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.nuvu.credit.card.dto.CreditCardDTO;
 import co.com.nuvu.credit.card.helpers.CardType;
+import co.com.nuvu.credit.card.services.ICreditCardEncriptServices;
 import co.com.nuvu.credit.card.services.ICreditCardServices;
+import co.com.nuvu.person.commons.dto.PersonDTO;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -24,6 +26,10 @@ public class CreditCardRestController {
 
 	@Autowired
 	private ICreditCardServices service;
+
+	@Autowired
+	private ICreditCardEncriptServices encryptServices;
+
 
 	@GetMapping
 	public List<CreditCardDTO> findAll() {
@@ -38,6 +44,16 @@ public class CreditCardRestController {
 	@GetMapping("/cardtype/{number}")
 	public CardType detectCardType(@PathVariable("number") String number) {
 		return service.detectCardType(number);
+	}
+
+	@PostMapping("/encrypt")
+	public String encrypt(@Valid @RequestBody PersonDTO person) {
+		return encryptServices.encryptCreditCardNumber(person);
+	}
+
+	@PostMapping("/decrypt")
+	public String decrypt(@Valid @RequestBody PersonDTO person) {
+		return encryptServices.decriptCreditCardNumber(person);
 	}
 
 	@PostMapping

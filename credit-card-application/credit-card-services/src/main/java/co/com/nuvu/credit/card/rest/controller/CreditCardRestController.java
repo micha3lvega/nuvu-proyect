@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.nuvu.credit.card.dto.CreditCardDTO;
+import co.com.nuvu.credit.card.helpers.CardType;
 import co.com.nuvu.credit.card.services.ICreditCardServices;
 
 @RestController
@@ -32,6 +33,11 @@ public class CreditCardRestController {
 	@GetMapping("/{id}")
 	public CreditCardDTO finById(@PathVariable("id") String id) {
 		return service.findById(id);
+	}
+
+	@GetMapping("/cardtype/{number}")
+	public CardType detectCardType(@PathVariable("number") String number) {
+		return service.detectCardType(number);
 	}
 
 	@PostMapping

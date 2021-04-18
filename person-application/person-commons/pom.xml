@@ -7,4 +7,20 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<name>person-commons</name>
 	<description>Aplicacion para los objectos en comun de las personas</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
 </project>

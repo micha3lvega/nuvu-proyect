@@ -27,7 +27,6 @@ public class CreditCardDTO implements Serializable {
 
 	private static final long serialVersionUID = -3059103244806541499L;
 
-	@NotBlank
 	private String id;
 
 	@NotBlank

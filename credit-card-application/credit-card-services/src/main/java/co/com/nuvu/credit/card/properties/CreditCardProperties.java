@@ -6,9 +6,11 @@ import org.springframework.context.annotation.PropertySource;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Configuration
+@NoArgsConstructor
 @AllArgsConstructor
 @PropertySource("classpath:creditcard.properties")
 public class CreditCardProperties {

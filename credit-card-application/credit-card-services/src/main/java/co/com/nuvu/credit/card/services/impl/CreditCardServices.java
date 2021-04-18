@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.nuvu.credit.card.dto.CreditCardDTO;
 import co.com.nuvu.credit.card.exception.CreditCardBusinessException;
 import co.com.nuvu.credit.card.exception.CreditCardNotExistsExcepction;
+import co.com.nuvu.credit.card.helpers.CardType;
 import co.com.nuvu.credit.card.model.CreditCard;
 import co.com.nuvu.credit.card.repository.ICreditCardRespository;
 import co.com.nuvu.credit.card.services.ICreditCardServices;
@@ -36,7 +37,7 @@ public class CreditCardServices implements ICreditCardServices {
 	@Transactional(readOnly = true)
 	public CreditCardDTO findById(String id) {
 
-		if ((id == null) || id.isBlank()) {
+		if ((id == null) || id.isEmpty()) {
 			throw new CreditCardBusinessException("ID invalido");
 		}
 
@@ -51,6 +52,10 @@ public class CreditCardServices implements ICreditCardServices {
 
 		if (Objects.isNull(creditCard)) {
 			throw new CreditCardBusinessException("Tarjeta de credito invalida");
+		}
+
+		if (Objects.isNull(creditCard.getCardType())) {
+			creditCard.setCardType(CardType.detect(creditCard.getNumber()));
 		}
 
 		CreditCard obj = repository.insert(mapper.map(creditCard, CreditCard.class));
@@ -79,7 +84,7 @@ public class CreditCardServices implements ICreditCardServices {
 	@Transactional
 	public void delete(String id) {
 
-		if ((id == null) || id.isBlank()) {
+		if ((id == null) || id.isEmpty()) {
 			throw new CreditCardBusinessException("ID de tarjeta invalido");
 		}
 

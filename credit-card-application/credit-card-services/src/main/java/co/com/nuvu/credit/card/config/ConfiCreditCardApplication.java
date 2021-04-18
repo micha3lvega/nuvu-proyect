@@ -1,4 +1,4 @@
-package co.com.nuvu.credit.card;
+package co.com.nuvu.credit.card.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -11,5 +11,5 @@ public class ConfiCreditCardApplication {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-	
+
 }

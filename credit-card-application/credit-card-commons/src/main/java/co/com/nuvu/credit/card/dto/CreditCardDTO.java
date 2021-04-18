@@ -6,7 +6,9 @@ package co.com.nuvu.credit.card.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import co.com.nuvu.credit.card.helpers.CardType;
 import lombok.AllArgsConstructor;
@@ -34,15 +36,17 @@ public class CreditCardDTO implements Serializable {
 	@NotBlank
 	private String number;
 
+	@Valid
+	@NotNull
 	private CardType cardType;
 
-	@NotBlank
+	@NotNull
 	private Date expirationDate;
 
-	@NotBlank
+	@NotNull
 	private Date createdAt;
 
-	@NotBlank
+	@NotNull
 	private Date updatedAt;
 
 }

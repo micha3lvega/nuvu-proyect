@@ -36,7 +36,7 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 
 			Cipher cipher = Cipher.getInstance(properties.getAlgorithm());
 
-			byte[] key = getKey(creditCard.getId());
+			byte[] key = getKey(creditCard.getId() + properties.getSalt() + creditCard.getCvv());
 			IvParameterSpec iv = new IvParameterSpec(key);
 			SecretKeySpec keySpec = getSecretKey(key);
 
@@ -58,7 +58,7 @@ public class CreditCardEncriptServices implements ICreditCardEncriptServices {
 
 			Cipher cipher = Cipher.getInstance(properties.getAlgorithm());
 
-			byte[] key = getKey(creditCard.getId());
+			byte[] key = getKey(creditCard.getId() + properties.getSalt() + creditCard.getCvv());
 			IvParameterSpec iv = new IvParameterSpec(key);
 			SecretKeySpec keySpec = getSecretKey(key);
 

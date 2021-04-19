@@ -3,6 +3,7 @@ package co.com.nuvu.user.services.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -29,8 +30,10 @@ public class UserDTO implements Serializable {
 	@NotEmpty
 	private String password;
 	
-	private Boolean enabled;
+	private boolean enabled;
 	
+	@Valid
+	@NotEmpty
 	private List<RolDTO> rols;
 
 }

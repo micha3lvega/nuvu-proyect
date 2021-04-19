@@ -6,4 +6,6 @@ import co.com.nuvu.user.services.model.User;
 
 public interface IUserRepository extends MongoRepository<User, String> {
 
+	User findByEmail(String email);
+
 }

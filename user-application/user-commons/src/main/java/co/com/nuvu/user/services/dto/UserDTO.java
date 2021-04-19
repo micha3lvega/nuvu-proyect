@@ -30,7 +30,7 @@ public class UserDTO implements Serializable {
 	@NotEmpty
 	private String password;
 	
-	private boolean enabled;
+	private boolean enabled = true;
 	
 	@Valid
 	@NotEmpty

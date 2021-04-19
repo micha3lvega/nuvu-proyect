@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ExceptionErrorInfo implements Serializable{
+public class ExceptionErrorInfo implements Serializable {
 
 	private static final long serialVersionUID = -7379874768930527552L;
 
@@ -33,6 +33,12 @@ public class ExceptionErrorInfo implements Serializable{
 
 	public String getUriRequested() {
 		return uriRequested;
+	}
+
+	@Override
+	public String toString() {
+		return "ExceptionErrorInfo [message=" + message + ", statusCode=" + statusCode + ", uriRequested="
+				+ uriRequested + "]";
 	}
 
 }

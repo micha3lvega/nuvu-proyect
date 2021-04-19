@@ -31,6 +31,6 @@ public class UserDTO implements Serializable {
 	
 	private Boolean enabled;
 	
-	private List<RolDTO> rol;
+	private List<RolDTO> rols;
 
 }

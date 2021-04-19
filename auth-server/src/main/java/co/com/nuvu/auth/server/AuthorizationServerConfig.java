@@ -52,5 +52,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		jwtAccessTokenConverter.setSigningKey("co.com.nuvu");
 		return jwtAccessTokenConverter;
 	}
-
 }

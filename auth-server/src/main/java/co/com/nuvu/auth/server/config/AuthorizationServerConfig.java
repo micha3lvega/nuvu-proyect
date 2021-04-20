@@ -1,4 +1,4 @@
-package co.com.nuvu.auth.server;
+package co.com.nuvu.auth.server.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

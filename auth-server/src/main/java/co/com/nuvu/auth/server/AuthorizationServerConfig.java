@@ -30,7 +30,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		super.configure(clients);
+		clients.inMemory().withClient("nuvu")
+		.secret(encoder.encode("nuvu"))
+		.scopes("read","write")
+		.authorizedGrantTypes("password", "refresh_token")
+		.accessTokenValiditySeconds(3600)
+		.refreshTokenValiditySeconds(7200);
 	}
 
 	@Override

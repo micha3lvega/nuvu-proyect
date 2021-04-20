@@ -1,5 +1,0 @@
- zuul:
-  routes:
-    persons:
-      path: /person/**
-      serviceId: person-services
